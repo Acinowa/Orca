@@ -41,11 +41,12 @@ special:
     `<t:scalar> bool`: 0/1 (?)
     (field): `name`(constant string), `type`(type), `offset`(constant)
 
-`<t:partial>`: `? [ private ] <n:t> <? tpl ...>`
+`<t:partial>`: `? [ restricted ] <n:t> <? tpl ...>`
     `? t2[*: ? d]`
     `? t2[&: ? d]` // (?)
     `? t2[: ? d]`
-    `private`: disables all operators and allows using with private layouts
+    `restricted`: disables all operators on argument and 
+            allows using with private layouts
         
 ```
 ## nodes
@@ -276,10 +277,7 @@ can't initialize values of type with `^` by type (?)
 
 value: (...) :: (...) -> <t> // compound declare and call/assign
 
-`parameter: ? private ref t^` instead of `parameter: ref ? private t^` (?)
-
-replace private with something else (?)
-    should apply to entire type (including templates and ref) (?)
+`parameter: ? restricted ref t^` instead of `parameter: ref ? restricted t^` (?)
 
 `current platform`
 `<plf> is <plf>`
