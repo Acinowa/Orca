@@ -70,12 +70,12 @@ special:
 `<n> :: platform[ (<plf:base>) ]"<n>"`
 `<n>[: ] :: [ <t:i> ]enum[ (t:base) ]`
 `<n>[: ] :: [ <t:u> ]flags[ (t:base) ]`
-`[<field:enum> &]/[<n> .]<n>[: ] ::[ ? ]<.ld>`
+`[<field:enum> &]/[<n> .]<n>[: ] ::[ ? .]<.ld>`
 `<n/"n"/op.> [ *]::[ ? ] <.f>`
 `<n/"n">: <x/t>`
 `<n> #:[ ? ] <cx>`
 
-`[<n> .]<l> :: !(<plf>) <.ld>`
+`[<n> .]<l> :: !<plf> .<.ld>`
 `<f> ::[ !<plf> ] <.f>`
 `<c> #:[ !(<plf>) ] <cx>`
 
@@ -281,6 +281,13 @@ value: (...) :: (...) -> <t> // compound declare and call/assign
 replace private with something else (?)
     should apply to entire type (including templates and ref) (?)
 
+`current platform`
+`<plf> is <plf>`
+
+parentheses around expression instead of platform for constants (?)
+    or don't have platform specific constants (?)
+
+
 `;`: multiple expressions on the same line
 
 for (x, y) in positions
@@ -449,6 +456,41 @@ print 4 + 4 // valid (same as `print (4 + 4)`)
 sin (4 + 4) // valid
 
 sin 4 -> other
+
+```
+## platform specific
+```
+file :: ? .private layout
+
+open file :: ? (name: string) -> file^
+
+
+file :: !windows .private layout
+    ...
+
+open file :: !windows (name: string) -> file^
+    ...
+```
+## unions/layouts
+```
+t &struct :: layout
+    t: :: enum
+        first, second, third // first is 1, unknown is 0
+    common value: u32
+    case first
+        constant subsubtype #: {common value: 1, first specific: -1}
+        subsubtype ':: (parameter) -> struct
+        first specific: 1
+    case second => a & b: (u16, u32)
+
+structure: first struct
+structure's first specific <- 2
+
+
+structure: unknown struct {common value: 10}
+
+other: structure to first struct
+other's first specific <- 2
 
 ```
 ## serialize, views, type selection if, partial types
