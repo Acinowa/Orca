@@ -453,7 +453,7 @@ sin 4 -> other
 ```
 ## serialize, views, type selection if, partial types
 ```
-serialize :: (value: ref ? t, output: byte[])
+serialize :: (value: ? ref t, output: byte[])
     for field in t
         if& field is
             case ? t2[: ? d]
@@ -482,7 +482,7 @@ interface :: layout
     using vtable: null // unknown*
 
 
-struct vtable :: layout
+struct vtable: :: layout
     set value: (in | object: interface*, to | value: int) -> float (*)
 
 struct :: layout (interface)
@@ -586,6 +586,7 @@ t? .iterable :: trait
     ...
 
 sort :: (value: t? (.indexable: t2? comparable))
+sort :: (value: t[] where t? comparable)
 <-$ :: (dest: t? wbuffer) (source: t? any) // built in
 
 wbuffer <-$ struct
